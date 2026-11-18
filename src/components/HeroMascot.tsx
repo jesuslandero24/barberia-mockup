@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { publicPath } from "@/config/paths";
 
 type HeroMascotProps = {
   alt: string;
@@ -9,7 +10,7 @@ export function HeroMascot({ alt, sizes }: HeroMascotProps) {
   return (
     <div className="hero-mascot-frame">
       <Image
-        src="/fotos/barber-head-illustration.png"
+        src={publicPath("/fotos/barber-head-illustration.png")}
         alt={alt}
         fill
         preload
