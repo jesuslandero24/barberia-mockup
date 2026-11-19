@@ -234,10 +234,18 @@ export async function createClient(input: {
   const existing = phoneMatch ?? emailMatch;
 
   if (existing) {
-    if (phoneMatch && existing.email && existing.email.toLowerCase() !== email) {
-      throw new ClientConflictError("email");
+    if (
+      phoneMatch &&
+      existing.email &&
+      existing.email.trim().toLowerCase() !== email
+    ) {
+      throw new ClientConflictError("phone");
     }
-    if (emailMatch && existing.phone && existing.phone.replace(/\D/g, "") !== phone) {
+    if (
+      emailMatch &&
+      existing.phone &&
+      existing.phone.replace(/\D/g, "") !== phone
+    ) {
       throw new ClientConflictError("email");
     }
 
