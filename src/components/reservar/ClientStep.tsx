@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { FormEvent } from "react";
-import { Mail, Phone, Search, UserRound } from "lucide-react";
+import { Phone, Search, UserRound } from "lucide-react";
 import type { Barber, Booking, Client, Service } from "@/lib/types";
 import { reservation } from "@/config/content";
 import {
@@ -254,13 +254,6 @@ export function ClientStep({
               <Phone size={15} className="text-accent" aria-hidden="true" />
               <dt className="sr-only">{reservation.phoneLabel}</dt>
               <dd className="text-foreground">{lookup.client.phone}</dd>
-            </div>
-            <div className="flex items-center gap-2">
-              <Mail size={15} className="text-accent" aria-hidden="true" />
-              <dt className="sr-only">{reservation.emailLabel}</dt>
-              <dd className="break-all text-foreground">
-                {lookup.client.email}
-              </dd>
             </div>
           </dl>
 
