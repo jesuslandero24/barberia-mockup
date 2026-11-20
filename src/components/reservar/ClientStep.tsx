@@ -13,6 +13,7 @@ import {
 } from "@/lib/db";
 import {
   isValidEmail,
+  isValidName,
   isValidPhone,
   looksLikeEmail,
   normalizePhone,
@@ -130,7 +131,7 @@ export function ClientStep({
 
     const nextErrors: FormErrors = {};
 
-    if (form.name.trim().length < 3) {
+    if (form.name.trim().length < 3 || !isValidName(form.name)) {
       nextErrors.name = reservation.errors.name;
     }
     if (!isValidPhone(form.phone)) {
