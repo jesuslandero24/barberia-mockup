@@ -11,7 +11,7 @@ export function isValidName(value: string): boolean {
 }
 
 export function isValidEmail(value: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value.trim());
+  return /^[^\s@]+@(?:[^\s@.]+\.)+[^\s@.]{2,}$/.test(value.trim());
 }
 
 export function looksLikeEmail(value: string): boolean {
