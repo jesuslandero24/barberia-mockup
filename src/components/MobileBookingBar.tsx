@@ -8,7 +8,7 @@ import { nav } from "@/config/content";
 export function MobileBookingBar() {
   const pathname = usePathname();
 
-  if (pathname === "/reservar") return null;
+  if (pathname === "/reservar" || pathname.startsWith("/metricas")) return null;
 
   return (
     <>

@@ -10,6 +10,8 @@
   --accent: #d4a95a;
   --accent-soft: #8a6b33;
   --neon: #39ff14;
+  --success: #6cc49a;
+  --danger: #ef6b73;
   --base-text: 1.0625rem;
   --base-leading: 1.65;
   --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -41,6 +43,8 @@
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
   --color-neon: var(--neon);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
   --font-sans: var(--font-inter);
   --font-display: var(--font-barlow);
   --text-xs: 0.8125rem;
