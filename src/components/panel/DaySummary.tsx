@@ -10,7 +10,9 @@ type DaySummaryProps = {
 };
 
 function formatHours(value: number): string {
-  return Number.isInteger(value) ? `${value} h` : `${value.toFixed(1)} h`;
+  return Number.isInteger(value)
+    ? `${value} h`
+    : `${value.toLocaleString("es-CO", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} h`;
 }
 
 export function DaySummary({
