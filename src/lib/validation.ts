@@ -6,6 +6,10 @@ export function isValidPhone(value: string): boolean {
   return /^3\d{9}$/.test(normalizePhone(value));
 }
 
+export function isValidName(value: string): boolean {
+  return /\p{L}/u.test(value.trim());
+}
+
 export function isValidEmail(value: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value.trim());
 }
