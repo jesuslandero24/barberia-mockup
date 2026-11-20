@@ -12,6 +12,7 @@ import { Reveal } from "@/components/Reveal";
 export function Works() {
   const [category, setCategory] = useState<string>("Todos");
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const touchStartX = useRef<number | null>(null);
   const didSwipe = useRef(false);
 
@@ -24,6 +25,8 @@ export function Works() {
 
   useEffect(() => {
     if (activeIndex === null) return;
+
+    closeButtonRef.current?.focus();
 
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") setActiveIndex(null);
@@ -200,6 +203,7 @@ export function Works() {
             </span>
             <button
               type="button"
+              ref={closeButtonRef}
               onClick={() => setActiveIndex(null)}
               aria-label={worksSection.close}
               className="grid size-12 place-items-center rounded-xl border border-border bg-surface text-foreground transition-colors duration-200 hover:border-accent/60 hover:text-accent"
