@@ -200,7 +200,10 @@ export async function findClient(identifier: string): Promise<Client | null> {
   }
 
   const phone = value.replace(/\D/g, "");
-  return database.clients.find((client) => client.phone === phone) ?? null;
+  return (
+    database.clients.find((client) => client.phone.replace(/\D/g, "") === phone) ??
+    null
+  );
 }
 
 export async function findClientsByName(name: string): Promise<Client[]> {
