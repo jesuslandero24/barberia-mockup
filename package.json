@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.65.1",
+    "@tailwindcss/postcss": "^4",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -28,5 +29,8 @@
     "eslint-config-next": "16.4.5",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "overrides": {
+    "magic-string": "0.30.17"
   }
 }

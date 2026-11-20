@@ -12,6 +12,7 @@ import { Reveal } from "@/components/Reveal";
 export function Works() {
   const [category, setCategory] = useState<string>("Todos");
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const touchStartX = useRef<number | null>(null);
   const didSwipe = useRef(false);
 
@@ -20,23 +21,25 @@ export function Works() {
       ? galleryPhotos
       : galleryPhotos.filter((photo) => photo.category === category);
   const preview = filtered.slice(0, 8);
-  const activePhoto = activeIndex === null ? null : galleryPhotos[activeIndex];
+  const activePhoto = activeIndex === null ? null : filtered[activeIndex];
 
   useEffect(() => {
     if (activeIndex === null) return;
+
+    closeButtonRef.current?.focus();
 
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") setActiveIndex(null);
       if (event.key === "ArrowRight") {
         setActiveIndex((index) =>
-          index === null ? null : (index + 1) % galleryPhotos.length,
+          index === null ? null : (index + 1) % filtered.length,
         );
       }
       if (event.key === "ArrowLeft") {
         setActiveIndex((index) =>
           index === null
             ? null
-            : (index - 1 + galleryPhotos.length) % galleryPhotos.length,
+             : (index - 1 + filtered.length) % filtered.length,
         );
       }
     }
@@ -48,7 +51,7 @@ export function Works() {
       document.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = "";
     };
-  }, [activeIndex]);
+  }, [activeIndex, filtered.length]);
 
   function changeCategory(next: string) {
     setCategory(next);
@@ -56,13 +59,13 @@ export function Works() {
   }
 
   function openPhoto(src: string) {
-    const index = galleryPhotos.findIndex((photo) => photo.src === src);
+    const index = filtered.findIndex((photo) => photo.src === src);
     setActiveIndex(index >= 0 ? index : 0);
   }
 
   function showNext() {
     setActiveIndex((index) =>
-      index === null ? null : (index + 1) % galleryPhotos.length,
+      index === null ? null : (index + 1) % filtered.length,
     );
   }
 
@@ -70,7 +73,7 @@ export function Works() {
     setActiveIndex((index) =>
       index === null
         ? null
-        : (index - 1 + galleryPhotos.length) % galleryPhotos.length,
+        : (index - 1 + filtered.length) % filtered.length,
     );
   }
 
@@ -131,7 +134,10 @@ export function Works() {
 
             <button
               type="button"
-              onClick={() => setActiveIndex(0)}
+              onClick={() => {
+                setCategory("Todos");
+                setActiveIndex(0);
+              }}
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-accent/40 bg-accent/10 px-5 text-[1.0625rem] font-semibold text-accent transition duration-200 hover:border-accent hover:bg-accent hover:text-background"
             >
               <Images size={18} aria-hidden="true" />
@@ -200,6 +206,7 @@ export function Works() {
             </span>
             <button
               type="button"
+              ref={closeButtonRef}
               onClick={() => setActiveIndex(null)}
               aria-label={worksSection.close}
               className="grid size-12 place-items-center rounded-xl border border-border bg-surface text-foreground transition-colors duration-200 hover:border-accent/60 hover:text-accent"
@@ -237,7 +244,7 @@ export function Works() {
             </button>
             <span className="text-base tabular-nums text-muted">
               {activeIndex === null ? 0 : activeIndex + 1} /{" "}
-              {galleryPhotos.length}
+               {filtered.length}
             </span>
             <button
               type="button"
