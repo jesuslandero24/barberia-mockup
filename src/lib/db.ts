@@ -5,6 +5,7 @@ import {
   getAvailableSlots,
   getBogotaToday,
 } from "@/lib/availability";
+import { getContactConflict } from "@/lib/contact-conflicts";
 
 export const STORAGE_KEY = "yonder-barberia-db-v2";
 export const SEED_SUPPRESSION_KEY = "yb-seeded-v2";
@@ -234,11 +235,17 @@ export async function createClient(input: {
   const existing = phoneMatch ?? emailMatch;
 
   if (existing) {
-    if (phoneMatch && existing.email && existing.email.toLowerCase() !== email) {
-      throw new ClientConflictError("email");
-    }
-    if (emailMatch && existing.phone && existing.phone.replace(/\D/g, "") !== phone) {
-      throw new ClientConflictError("email");
+    const conflict = getContactConflict({
+      phoneMatchId: phoneMatch?.id,
+      emailMatchId: emailMatch?.id,
+      existingPhone: existing.phone,
+      existingEmail: existing.email,
+      phone,
+      email,
+    });
+
+    if (conflict) {
+      throw new ClientConflictError(conflict);
     }
 
     if (!existing.phone) existing.phone = phone;
